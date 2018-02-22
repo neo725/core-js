@@ -7,10 +7,13 @@ exports.f = require('./_descriptors') ? Object.defineProperty : function defineP
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
+  try {
+    if (IE8_DOM_DEFINE) return dP(O, P, Attributes);
+    if ("get" in Attributes || "set" in Attributes)
+      throw TypeError("Accessors not supported!");
+    if ("value" in Attributes) O[P] = Attributes.value;
+  } catch (e) {
+    /* empty */
+  }
   return O;
 };
